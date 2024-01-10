@@ -1,0 +1,395 @@
+#:kivy 1.0.9
+#D:\ComputerLesson\OperatingSystem\kivy_lern\login_screen_parts\login_screen.jpg
+# good text color 239.0/256, 228.0/256, 176.0/256, 1
+
+<LoginScreen>:
+
+    login_screen_image: login_screen_img
+
+    Image:
+        id: login_screen_img
+        source: root.get_source()
+        size: root.size
+        allow_stretch: True
+        keep_ratio: False
+
+    FloatLayout:
+
+        TextInput:
+            id: user_name_text_input
+            multiline: False
+            size_hint: 0.3, 0.07
+            pos_hint:{"right":0.48, "top":0.68}
+            font_name: 'BOD_BLAI'
+            font_size: 22
+            foreground_color: 134/256.0, 10/256.0, 20/256.0, 1
+            background_color: 0, 0, 0, 0
+
+            input_filter:
+                lambda text, from_undo: text[:20 - len(self.text)]
+
+        TextInput:
+            id: password_text_input
+            multiline: False
+            input_filter: lambda text, from_undo: text[:20 - len(self.text)]
+            size_hint: 0.3, 0.07
+            pos_hint:{"right":0.48, "top":0.5}
+            font_name: 'BOD_BLAI'
+            font_size: 22
+            foreground_color: 134/256.0, 10/256.0, 20/256.0, 1
+            background_color: 0, 0, 0, 0
+            #password_mask: '@'
+            password: True
+
+        Button:
+            text: 'Login'
+            color: (134/256.0, 10/256.0, 20/256.0, 1) if self.state == 'normal' else (239.0/256, 228.0/256, 176.0/256, 1)
+            font_name:'BOD_BLAI'
+            size_hint: (0.1, 0.05)
+            pos_hint: {'x': 0.28, 'y': 0.35}
+            font_size: 24
+            background_color: 134/256.0, 10/256.0, 20/256.0, 0
+
+            on_release:
+                root.on_press_login()
+
+        Button:
+            id: create_account_button
+            text: 'Create an account?'
+            color: (134/256.0, 10/256.0, 20/256.0, 1) if self.state == 'normal' else (239.0/256, 228.0/256, 176.0/256, 1)
+            font_name:'BOD_BLAI'
+            size_hint: (0.20, 0.05)
+            pos_hint: {'x': 0.23, 'y': 0.28}
+            font_size: 20
+            background_color: 134/256.0, 10/256.0, 20/256.0, 0
+
+            on_release:
+                root.on_press_create_account()
+
+        Label:
+            id: login_error_message
+            text: ''
+            color: (146/256.0, 48/256.0, 46/256.0, 1)
+            font_size: 18
+            font_name:'BOD_BLAI'
+            pos_hint: {'x': 0.3, 'y': 0.7}
+            size_hint: (None, None)
+
+
+
+<RegisterScreen>:
+
+    Image:
+        source: root.get_source()
+        size: root.size
+        allow_stretch: True
+        keep_ratio: False
+
+    FloatLayout:
+
+        TextInput:
+            id: user_name_input_register
+            multiline: False
+            input_filter: lambda text, from_undo: text[:20 - len(self.text)]
+            size_hint: 0.3, 0.07
+            pos_hint:{"right":0.81, "top":0.715}
+            font_name: 'BOD_BLAI'
+            font_size: 22
+            foreground_color: 134/256.0, 10/256.0, 20/256.0, 1
+            background_color: 0, 0, 0, 0
+
+        TextInput:
+            id: password_input_register
+            multiline: False
+            input_filter: lambda text, from_undo: text[:20 - len(self.text)]
+            size_hint: 0.3, 0.07
+            pos_hint:{"right":0.81, "top":0.53}
+            font_name: 'BOD_BLAI'
+            font_size: 22
+            foreground_color: 134/256.0, 10/256.0, 20/256.0, 1
+            background_color: 0, 0, 0, 0
+            #password_mask: '@'
+            #password: True
+
+        Button:
+            id: sign_up_button
+            text: 'sign_up'
+            color: (134/256.0, 10/256.0, 20/256.0, 1) if self.state == 'normal' else (239.0/256, 228.0/256, 176.0/256, 1)
+            font_name:'BOD_BLAI'
+            size_hint: (0.1, 0.05)
+            pos_hint: {'x': 0.61, 'y': 0.38}
+            font_size: 24
+            background_color: 134/256.0, 10/256.0, 20/256.0, 0
+
+            on_release:
+                root.on_press_sign_up()
+
+        Button:
+            text: 'Already have an account?'
+            color: (134/256.0, 10/256.0, 20/256.0, 1) if self.state == 'normal' else (239.0/256, 228.0/256, 176.0/256, 1)
+            font_name:'BOD_BLAI'
+            size_hint: (0.25, 0.05)
+            pos_hint: {'x': 0.73, 'y': 0.05}
+            font_size: 20
+            background_color: 134/256.0, 10/256.0, 20/256.0, 0
+
+            on_release:
+                root.on_press_already_have_an_account()
+
+        Label:
+            id: register_error_message
+            text: ''
+            color: (146/256.0, 48/256.0, 46/256.0, 1)
+            font_size: 18
+            font_name:'BOD_BLAI'
+            pos_hint: {'x': 0.635, 'y': 0.7}
+            size_hint: (None, None)
+
+
+
+
+<MainScreen>:
+    GridLayout:
+        cols: 2
+
+        GridLayout:
+            rows: 2
+            size_hint: [0.3, 1]
+
+            #Add friend option part
+            RelativeLayout:
+                size_hint: [1, 0.2]
+                Image:
+                    size_hint: [1, 1]
+                    source: root.get_add_friend_part_img_source()
+                    allow_stretch: True
+                    keep_ratio: False
+                RelativeLayout:
+                    size_hint: [1, 0.3]
+                    pos_hint:{"right":1, "top":0.74}
+                    BoxLayout:
+                        size_hint: [1,1]
+                        orientation: 'horizontal'
+                        TextInput:
+                            id: friend_search_text_input
+                            font_name: 'CALISTBI'
+                            font_size: 20
+                            size_hint: [0.7, 1]
+                            multiline: False
+                            background_color: 0, 0, 0, 0
+                            foreground_color: 255/256.0, 145/256.0, 91/256.0, 1
+                            input_filter:
+                                lambda text, from_undo: text[:20 - len(self.text)]
+                        ImageButton:
+                            size_hint: [0.2, 1.3]
+                            pos_hint: {'x': 1, 'y':-0.14}
+                            source: root.get_add_friend_button()
+                            on_release: root.on_press_add_friend_button()
+                            allow_stretch: True
+                            keep_ratio: False
+                            #text: 'Already have an account?'
+                            #color: (134/256.0, 10/256.0, 20/256.0, 1) if self.state == 'normal' else (239.0/256, 228.0/256, 176.0/256, 1)
+                            #font_name: 'BOD_BLAI'
+                            #font_size: 20
+
+
+            #Friends list part
+            ScrollView:
+                size_hint: [1, 0.8]
+                do_scroll_x: False
+                bar_color: 134/256.0, 10/256.0, 20/256.0, 1
+                bar_pos_y: 'left'
+                GridLayout:
+                    id: friends_list
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    #orientation: 'vertical' #BoxLayout
+                    #size: root.size
+
+
+
+        GridLayout:
+            rows: 2
+            size_hint: [0.7, 1]
+
+            #Call part
+            RelativeLayout:
+                size_hint: [1, 0.2]
+                Image:
+                    id: call_part_img
+                    size_hint: 1, 1
+                    pos_hint:{"right":1, "top":1}
+                    source: root.get_call_part_img_source()
+                    allow_stretch: True
+                    keep_ratio: False
+
+                GridLayout:
+                    cols: 3
+                    rows: 1
+                    size_hint: 1, 1
+                    pos_hint:{"right":1, "top":1}
+                    Label:
+                        # picture place
+                        text: ''
+                    Label:
+                        id: name_call_part
+                        text: ''
+                        font_name: 'CALISTBI'
+                        font_size: 24
+                        color: (1/256.0, 1/256.0, 1/256.0, 1)
+                    BoxLayout:
+                        ImageButton:
+                            id: call_button
+                            on_press: root.on_press_call_button()
+                            pos_hint: {"center_x":0.5, "center_y":0.5}
+                            size_hint: 0.56666666666, 0.56666666666
+                            source: root.get_call_button_img_source() if self.state == 'normal' else root.get_call_button_pressed_img_source()
+                        #    allow_stretch: True
+                        #    keep_ratio: True
+
+                        ImageButton:
+                            id: buck_to_call_button
+                            pos_hint: {"center_x":0.5, "center_y":0.5}
+                            size_hint: 0.56666666666, 0.56666666666
+                            source: root.get_back_to_call_button_source()
+                            on_release: root.on_press_back_to_call_button()
+                        #    allow_stretch: True
+                        #    keep_ratio: True
+
+            #Messages part
+            Image:
+                id: message_part_img
+                size_hint: [1, 0.8]
+                source: root.get_messages_img_source()
+                allow_stretch: True
+                keep_ratio: False
+
+
+#color=(134/256.0, 10/256.0, 20/256.0, 1) if self.state == 'normal' else (239.0/256, 228.0/256, 176.0/256, 1)
+<FriendButton>:
+    id: temp
+    size_hint: (1, None)
+    height: 90
+    ImageButton:
+        id: friend_button_img
+        source: ''
+        allow_stretch: True
+        keep_ratio: False
+        text: ''
+    Label:
+        id: friend_name
+        text: ''
+        color: 0,0,0,1
+        font_name: 'CALISTBI'
+        font_size: 24
+
+
+<FriendRequestPopup>:
+    Label:
+        id: friend_request_popup_label
+        text: ''
+        font_size: 20
+        size_hint: 0.6, 0.2
+        pos_hint: {"x":0.2, "y":0.6}
+
+    BoxLayout:
+        id: buttons_part
+        size_hint: 0.5, 0.4
+        pos_hint: {"x":0.25, "y":0.1}
+        ImageButton:
+            id: v_button
+            source: root.ger_v_img_source()
+        ImageButton:
+            id: x_button
+            source: root.get_x_img_source()
+
+<MessagePopup>:
+    Label:
+        id: message_popup_label
+        text: ''
+        font_size: 18
+        size_hint: 0.6, 0.2
+        pos_hint: {"x":0.2, "y":0.6}
+
+<CallerPopup>:
+    Label:
+        id: caller_popup_label
+        text: ''
+        font_size: 20
+        size_hint: 0.6, 0.2
+        pos_hint: {"x":0.2, "y":0.6}
+
+    BoxLayout:
+        id: buttons_part
+        size_hint: 0.5, 0.4
+        pos_hint: {"x":0.25, "y":0.1}
+        ImageButton:
+            id: popup_hang_up_button
+            pos_hint: {"center_x":0.5, "center_y":0.5}
+            source: root.get_hang_up_button_source()
+
+<CallPopup>:
+    Label:
+        id: call_popup_label
+        text: ''
+        font_size: 20
+        size_hint: 0.6, 0.2
+        pos_hint: {"x":0.2, "y":0.6}
+
+    BoxLayout:
+        id: buttons_part
+        size_hint: 0.5, 0.4
+        pos_hint: {"x":0.25, "y":0.1}
+        ImageButton:
+            id: green_call_button
+            source: root.get_green_call_button()
+        ImageButton:
+            id: red_hang_up_button
+            size_hint: 1.2, 1.2
+            pos_hint: {"right":1, "top":1.06}
+            source: root.get_hang_up_button()
+
+
+
+<CallScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            size_hint: [1, 0.7]
+
+            Image:
+                id: output_img
+            Image:
+                id: input_img
+
+        RelativeLayout:
+            size_hint: [1, 0.3]
+
+            Image:
+                size_hint: [1, 1]
+                id: call_screen_buttons_part_img
+                source: root.get_buttons_part_img_source()
+                allow_stretch: True
+                keep_ratio: False
+
+            BoxLayout:
+                size_hint: [0.2, 1]
+                pos_hint: {"right":0.2, "top":1}
+                ImageButton:
+                    id: hang_up_button
+                    size_hint: [0.5, 0.5]
+                    source: root.get_hangup_img_source()
+                    pos_hint: {"center_x":0.5, "center_y":0.45}
+                    on_release: root.on_press_hang_up_button()
+
+            BoxLayout:
+                size_hint: [0.2, 1]
+                pos_hint: {"right":1, "top":1}
+                ImageButton:
+                    id: back_button
+                    size_hint: [0.5, 0.5]
+                    source: root.get_back_button_img_source()
+                    pos_hint: {"center_x":0.5, "center_y":0.45}
+                    on_release: root.on_press_back_button()
